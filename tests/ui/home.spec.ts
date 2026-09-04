@@ -1,7 +1,8 @@
-import { test, expect } from '@playwright/test';
+import {test, expect} from "@playwright/test"
+import { HomePage } from "../../pages/home.page"
 
-test('should load the Automation Exercise home page', async ({ page }) => {
-  await page.goto('/');
-
-  await expect(page).toHaveTitle(/Automation Exercise/);
-});
+test('should load the Automation Exercise home page', async ({page})=> {
+const homepage = new HomePage(page)
+await homepage.open() 
+await expect(page).toHaveTitle(/Automation Exercise/)
+})

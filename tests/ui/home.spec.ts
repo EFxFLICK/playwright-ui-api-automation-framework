@@ -1,8 +1,15 @@
-import {test, expect} from "@playwright/test"
-import { HomePage } from "../../pages/home.page"
+import { test, expect } from '@playwright/test';
+import { HomePage } from '../../pages/home.page';
+import { blockAds } from '../../utils/ad-blocker';
 
-test('should load the Automation Exercise home page', async ({page})=> {
-const homepage = new HomePage(page)
-await homepage.open() 
-await expect(page).toHaveTitle(/Automation Exercise/)
-})
+test('should navigate to the Products page from the header', async ({ page }) => {
+  await blockAds(page);
+
+  const homePage = new HomePage(page);
+
+  await homePage.open();
+
+  await homePage.header.goToProducts();
+
+  await expect(page).toHaveURL(/products/);
+});

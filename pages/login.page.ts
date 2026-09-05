@@ -6,6 +6,7 @@ export class LoginPage extends BasePage {
   readonly passwordInput: Locator;
   readonly loginButton: Locator;
   readonly loggedInUserText: Locator;
+  readonly loginErrorMessage: Locator;
 
   constructor(page: Page) {
     super(page);
@@ -17,6 +18,11 @@ export class LoginPage extends BasePage {
     this.loginButton = page.locator('[data-qa="login-button"]');
 
     this.loggedInUserText = page.getByText(/logged in as/i);
+
+    this.loginErrorMessage = page.getByText(
+      'Your email or password is incorrect!',
+      { exact: true },
+    );
   }
 
   async login(email: string, password: string): Promise<void> {

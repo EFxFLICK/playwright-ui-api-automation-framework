@@ -14,4 +14,17 @@ test.describe('Login', () => {
 
     await expect(loginPage.loggedInUserText).toBeVisible();
   });
+
+  test('should display an error message with invalid credentials', async ({
+    loginPage,
+  }) => {
+    await loginPage.navigate('/login');
+
+    await loginPage.login(
+      testUsers.invalidUser.email,
+      testUsers.invalidUser.password,
+    );
+
+    await expect(loginPage.loginErrorMessage).toBeVisible();
+  });
 });

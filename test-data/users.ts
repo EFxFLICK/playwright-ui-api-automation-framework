@@ -5,4 +5,9 @@ export const testUsers = {
     email: env.testUserEmail,
     password: env.testUserPassword,
   },
+
+  invalidUser: {
+    email: 'invalid-user@example.com',
+    password: 'InvalidPassword123!',
+  },
 };

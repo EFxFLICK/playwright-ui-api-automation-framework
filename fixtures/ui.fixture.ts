@@ -1,6 +1,7 @@
 import { test as base, expect } from '@playwright/test';
 import { HomePage } from '../pages/home.page';
 import { LoginPage } from '../pages/login.page';
+import { ProductDetailsPage } from '../pages/product-details.page';
 import { ProductsPage } from '../pages/products.page';
 import { blockAds } from '../utils/ad-blocker';
 
@@ -8,6 +9,7 @@ type UIFixtures = {
   homePage: HomePage;
   loginPage: LoginPage;
   productsPage: ProductsPage;
+  productDetailsPage: ProductDetailsPage;
 };
 
 export const test = base.extend<UIFixtures>({
@@ -33,6 +35,14 @@ export const test = base.extend<UIFixtures>({
     const productsPage = new ProductsPage(page);
 
     await use(productsPage);
+  },
+
+  productDetailsPage: async ({ page }, use) => {
+    await blockAds(page);
+
+    const productDetailsPage = new ProductDetailsPage(page);
+
+    await use(productDetailsPage);
   },
 });
 

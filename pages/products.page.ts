@@ -38,4 +38,12 @@ export class ProductsPage extends BasePage {
     await this.searchInput.fill(productName);
     await this.searchButton.click();
   }
+
+  async openProduct(productName: string): Promise<void> {
+    const product = this.productItems.filter({
+      hasText: productName,
+    });
+
+    await product.getByRole('link', { name: /view product/i }).click();
+  }
 }

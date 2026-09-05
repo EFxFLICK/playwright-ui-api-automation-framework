@@ -24,4 +24,28 @@ test.describe('Products', () => {
 
     expect(productCount).toBeGreaterThan(0);
   });
+
+  test('should display product details when a product is selected', async ({
+  productsPage,
+  productDetailsPage,
+}) => {
+    await productsPage.open();
+
+    await productsPage.openProduct('Blue Top');
+
+     await expect(productDetailsPage.productInformation).toBeVisible();
+
+     await expect(productDetailsPage.productName).toHaveText('Blue Top');
+
+     await expect(productDetailsPage.category).toContainText('Category:');
+
+     await expect(productDetailsPage.price).toContainText('Rs.');
+
+     await expect(productDetailsPage.availability).toContainText('Availability:',);
+
+     await expect(productDetailsPage.condition).toContainText('Condition:');
+
+     await expect(productDetailsPage.brand).toContainText('Brand:');
+  });
+
 });

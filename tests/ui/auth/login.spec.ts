@@ -27,4 +27,22 @@ test.describe('Login', () => {
 
     await expect(loginPage.loginErrorMessage).toBeVisible();
   });
+
+  test('should logout successfully after login', async ({
+    loginPage,
+    homePage,
+  }) => {
+    await loginPage.navigate('/login');
+
+    await loginPage.login(
+      testUsers.validUser.email,
+      testUsers.validUser.password,
+    );
+
+    await expect(loginPage.loggedInUserText).toBeVisible();
+
+    await homePage.header.logout();
+
+    await expect.poll(() => loginPage.isLoginPage()).toBe(true);
+  });
 });

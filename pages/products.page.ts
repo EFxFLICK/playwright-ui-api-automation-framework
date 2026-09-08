@@ -1,4 +1,4 @@
-import { Locator, Page } from '@playwright/test';
+import { Locator, Page, expect } from '@playwright/test';
 import { BasePage } from './base.page';
 
 export class ProductsPage extends BasePage {
@@ -7,6 +7,8 @@ export class ProductsPage extends BasePage {
   readonly searchInput: Locator;
   readonly searchButton: Locator;
   readonly searchResultsTitle: Locator;
+  readonly addedToCartModal: Locator;
+  readonly continueShoppingButton: Locator;
 
   constructor(page: Page) {
     super(page);
@@ -24,6 +26,15 @@ export class ProductsPage extends BasePage {
     this.searchResultsTitle = page.getByText('Searched Products', {
       exact: true,
     });
+
+    this.addedToCartModal = page.getByText(
+      'Your product has been added to cart.',
+      { exact: true },
+    );
+
+    this.continueShoppingButton = page.getByRole('button', {
+      name: 'Continue Shopping',
+    });
   }
 
   async open(): Promise<void> {
@@ -40,10 +51,32 @@ export class ProductsPage extends BasePage {
   }
 
   async openProduct(productName: string): Promise<void> {
-    const product = this.productItems.filter({
-      hasText: productName,
-    });
+  const product = this.productItems.filter({
+    hasText: productName,
+  });
 
-    await product.getByRole('link', { name: /view product/i }).click();
-  }
+  await Promise.all([
+    this.page.waitForURL(/\/product_details\/\d+/),
+    product
+      .getByRole('link', { name: /view product/i })
+      .click(),
+  ]);
+}
+
+  async addProductToCart(productName: string): Promise<void> {
+  const product = this.productItems.filter({
+    hasText: productName,
+  });
+
+  await product
+    .locator('.productinfo')
+    .getByText('Add to cart', { exact: true })
+    .click();
+
+  await expect(this.addedToCartModal).toBeVisible();
+
+  await this.continueShoppingButton.click();
+
+  await expect(this.addedToCartModal).toBeHidden();
+}
 }

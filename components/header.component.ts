@@ -16,7 +16,7 @@ export class HeaderComponent {
 
     this.productsLink = page.getByRole('link', { name: /products/i });
 
-    this.cartLink = page.getByRole('link', { name: /cart/i });
+    this.cartLink = page.locator('.shop-menu a[href="/view_cart"]');
 
     this.signupLoginLink = page.getByRole('link', {
       name: /signup\s*\/\s*login/i,

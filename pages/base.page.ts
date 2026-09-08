@@ -1,17 +1,27 @@
-import {Page} from "@playwright/test"
+import { Page } from '@playwright/test';
 
 export class BasePage {
-    protected readonly page: Page;
+  protected readonly page: Page;
 
-    get currentUrl(): string {
-        return this.page.url();
+  constructor(page: Page) {
+    this.page = page;
+  }
+
+  get currentUrl(): string {
+    return this.page.url();
+  }
+
+  async navigate(path = '/'): Promise<void> {
+  await this.page.goto(path, {
+    waitUntil: 'domcontentloaded',
+  });
 }
 
-    constructor(page : Page) {
-        this.page = page
-    }
+  async getPageText(): Promise<string> {
+    return this.page.locator('body').innerText();
+  }
 
-    async navigate(path = "/"): Promise<void> {
-        await this.page.goto(path)
-    }
-} 
+  async getPageTitle(): Promise<string> {
+    return this.page.title();
+  }
+}

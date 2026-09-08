@@ -1,8 +1,9 @@
 import { test as base, expect } from '@playwright/test';
 import { HomePage } from '../pages/home.page';
 import { LoginPage } from '../pages/login.page';
-import { ProductDetailsPage } from '../pages/product-details.page';
 import { ProductsPage } from '../pages/products.page';
+import { ProductDetailsPage } from '../pages/product-details.page';
+import { CartPage } from '../pages/cart.page';
 import { blockAds } from '../utils/ad-blocker';
 
 type UIFixtures = {
@@ -10,6 +11,7 @@ type UIFixtures = {
   loginPage: LoginPage;
   productsPage: ProductsPage;
   productDetailsPage: ProductDetailsPage;
+  cartPage: CartPage;
 };
 
 export const test = base.extend<UIFixtures>({
@@ -43,6 +45,14 @@ export const test = base.extend<UIFixtures>({
     const productDetailsPage = new ProductDetailsPage(page);
 
     await use(productDetailsPage);
+  },
+
+  cartPage: async ({ page }, use) => {
+    await blockAds(page);
+
+    const cartPage = new CartPage(page);
+
+    await use(cartPage);
   },
 });
 

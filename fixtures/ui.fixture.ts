@@ -5,6 +5,7 @@ import { ProductsPage } from '../pages/products.page';
 import { ProductDetailsPage } from '../pages/product-details.page';
 import { CartPage } from '../pages/cart.page';
 import { blockAds } from '../utils/ad-blocker';
+import { CheckoutPage } from '../pages/checkout.page';
 
 type UIFixtures = {
   homePage: HomePage;
@@ -12,6 +13,7 @@ type UIFixtures = {
   productsPage: ProductsPage;
   productDetailsPage: ProductDetailsPage;
   cartPage: CartPage;
+  checkoutPage: CheckoutPage;
 };
 
 export const test = base.extend<UIFixtures>({
@@ -54,6 +56,12 @@ export const test = base.extend<UIFixtures>({
 
     await use(cartPage);
   },
+
+  checkoutPage: async ({ page }, use) => {
+  await blockAds(page);
+  const checkoutPage = new CheckoutPage(page);
+  await use(checkoutPage);
+},
 });
 
 export { expect };

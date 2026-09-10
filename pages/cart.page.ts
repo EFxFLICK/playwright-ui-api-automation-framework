@@ -1,15 +1,17 @@
-import { Locator, Page } from '@playwright/test';
+import {expect, Locator, Page } from '@playwright/test';
 import { BasePage } from './base.page';
 
 export class CartPage extends BasePage {
   readonly cartTable: Locator;
   readonly cartRows: Locator;
+  readonly proceedToCheckoutButton: Locator;
 
   constructor(page: Page) {
     super(page);
 
     this.cartTable = page.locator('#cart_info_table');
     this.cartRows = this.cartTable.locator('tbody tr');
+    this.proceedToCheckoutButton = page.getByText('Proceed To Checkout', {exact: true,});
   }
 
   async open(): Promise<void> {
@@ -54,5 +56,12 @@ async removeProduct(productName: string): Promise<void> {
   const row = await this.getProductRow(productName);
 
   await row.locator('.cart_quantity_delete').click();
+
+  await expect
+    .poll(() => this.hasProduct(productName))
+    .toBe(false);
+}
+async proceedToCheckout(): Promise<void> {
+  await this.proceedToCheckoutButton.click();
 }
 }

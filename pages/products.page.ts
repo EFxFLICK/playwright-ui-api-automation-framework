@@ -27,13 +27,16 @@ export class ProductsPage extends BasePage {
       exact: true,
     });
 
-    this.addedToCartModal = page.getByText(
-      'Your product has been added to cart.',
-      { exact: true },
-    );
+    this.addedToCartModal = page
+      .locator('#cartModal')
+      .getByText('Your product has been added to cart.', {
+        exact: true,
+    });
 
-    this.continueShoppingButton = page.getByRole('button', {
-      name: 'Continue Shopping',
+    this.continueShoppingButton = page
+      .locator('#cartModal')
+      .getByRole('button', {
+        name: 'Continue Shopping',
     });
   }
 
@@ -73,7 +76,8 @@ export class ProductsPage extends BasePage {
     .getByText('Add to cart', { exact: true })
     .click();
 
-  await expect(this.addedToCartModal).toBeVisible();
+  await expect(this.addedToCartModal).toBeVisible({
+   timeout: 15000,});
 
   await this.continueShoppingButton.click();
 

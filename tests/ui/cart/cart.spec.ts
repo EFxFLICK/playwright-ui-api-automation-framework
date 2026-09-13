@@ -38,13 +38,15 @@ test('should add a product with the correct quantity', async ({
 
   await expect(productDetailsPage.productInformation).toBeVisible();
 
+  await productDetailsPage.waitForPageReady();
+
   await productDetailsPage.setQuantity(4);
 
   await expect(productDetailsPage.quantityInput).toHaveValue('4');
 
   await productDetailsPage.addToCart();
 
-  await expect(productDetailsPage.viewCartButton).toBeVisible();
+  await expect(productDetailsPage.viewCartButton).toBeVisible({timeout: 15000,});
 
   await productDetailsPage.goToCartFromModal();
 

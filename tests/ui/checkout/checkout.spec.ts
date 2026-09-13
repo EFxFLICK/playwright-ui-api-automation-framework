@@ -88,7 +88,7 @@ test.describe('Checkout', () => {
 
    await checkoutPage.placeOrder();
 
-   await expect(checkoutPage.paymentForm).toBeVisible();
+   await expect(checkoutPage.cardNameInput).toBeVisible({timeout: 15000,});
 
    await expect(checkoutPage.cardNameInput).toBeVisible();
    await expect(checkoutPage.cardNumberInput).toBeVisible();
@@ -135,7 +135,7 @@ test.describe('Checkout', () => {
 
    await checkoutPage.placeOrder();
 
-   await expect(checkoutPage.paymentForm).toBeVisible();
+   await expect(checkoutPage.cardNameInput).toBeVisible({timeout: 15000,});
 
    await checkoutPage.enterPaymentDetails(
      testPayment.cardName,

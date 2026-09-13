@@ -1,4 +1,4 @@
-import { Locator, Page } from '@playwright/test';
+import { expect, Locator, Page } from '@playwright/test';
 import { BasePage } from './base.page';
 
 export class CheckoutPage extends BasePage {
@@ -105,7 +105,9 @@ async payAndConfirmOrder(): Promise<void> {
   await this.payAndConfirmOrderButton.click();
 }
 
-async placeOrder(): Promise<void> {
-  await this.placeOrderButton.click();
-}
+  async placeOrder(): Promise<void> {
+   await this.placeOrderButton.click();
+ }
+
+ 
 };

@@ -14,8 +14,9 @@ export class BasePage {
   async navigate(path = '/'): Promise<void> {
   await this.page.goto(path, {
     waitUntil: 'domcontentloaded',
+    timeout: 30000,
   });
-}
+ }
 
   async getPageText(): Promise<string> {
     return this.page.locator('body').innerText();

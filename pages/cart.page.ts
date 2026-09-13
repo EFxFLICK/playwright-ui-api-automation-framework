@@ -61,7 +61,10 @@ async removeProduct(productName: string): Promise<void> {
     .poll(() => this.hasProduct(productName))
     .toBe(false);
 }
-async proceedToCheckout(): Promise<void> {
-  await this.proceedToCheckoutButton.click();
-}
+  async proceedToCheckout(): Promise<void> {
+
+   await this.proceedToCheckoutButton.click();
+
+   await this.page.waitForLoadState('domcontentloaded');
+  }
 }

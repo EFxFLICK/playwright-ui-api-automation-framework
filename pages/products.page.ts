@@ -54,17 +54,20 @@ export class ProductsPage extends BasePage {
   }
 
   async openProduct(productName: string): Promise<void> {
-  const product = this.productItems.filter({
-    hasText: productName,
-  });
+  const product = this.productItems
+    .filter({
+      hasText: productName,
+    })
+    .first();
 
-  await Promise.all([
-    this.page.waitForURL(/\/product_details\/\d+/),
-    product
-      .getByRole('link', { name: /view product/i })
-      .click(),
-  ]);
-}
+  await expect(product).toBeVisible();
+
+  await product
+    .getByRole('link', { name: /view product/i })
+    .click();
+
+  await expect(this.page).toHaveURL(/\/product_details\/\d+/);
+ }
 
   async addProductToCart(productName: string): Promise<void> {
   const product = this.productItems.filter({

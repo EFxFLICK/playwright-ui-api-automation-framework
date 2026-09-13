@@ -1,4 +1,4 @@
-import { Locator, Page } from '@playwright/test';
+import { expect, Locator, Page } from '@playwright/test';
 import { BasePage } from './base.page';
 
 export class ProductDetailsPage extends BasePage {
@@ -51,11 +51,15 @@ export class ProductDetailsPage extends BasePage {
   }
 
   async addToCart(): Promise<void> {
-  await this.addToCartButton.click();
+   await this.addToCartButton.click();
   }
 
   async goToCartFromModal(): Promise<void> {
-  await this.viewCartButton.click();
+   await this.viewCartButton.click();
   }
 
+  async waitForPageReady(): Promise<void> {
+   await this.page.waitForLoadState('load');
+   await this.page.waitForTimeout(2000);
+  }
 } 

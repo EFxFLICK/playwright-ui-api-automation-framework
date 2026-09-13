@@ -1,4 +1,4 @@
-import { Locator, Page } from '@playwright/test';
+import { expect, Locator, Page } from '@playwright/test';
 
 export class HeaderComponent {
   private readonly page: Page;
@@ -44,6 +44,9 @@ export class HeaderComponent {
   }
 
   async logout(): Promise<void> {
-    await this.logoutLink.click();
-  }
+  await expect(this.logoutLink).toBeVisible();
+  await expect(this.logoutLink).toBeEnabled();
+
+  await this.logoutLink.click();
+}
 }

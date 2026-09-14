@@ -15,10 +15,16 @@ export default defineConfig({
   timeout : 50000,
 
   reporter: [
-    ['html', { open: 'never' }],
-    ['list'],
+   ['html', { open: 'never' }],
+   ['list'],
+   [
+     'allure-playwright',
+     {
+       resultsDir: 'allure-results',
+     },
+   ],
   ],
-
+  
   use: {
     baseURL: env.baseUrl,
 

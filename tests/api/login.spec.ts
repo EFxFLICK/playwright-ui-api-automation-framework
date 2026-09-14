@@ -1,4 +1,5 @@
 import { test, expect } from '../../fixtures/api.fixture';
+import { attachApiResponse } from '../../utils/api-attachments';
 import {
   expectSuccessfulResponse,
   expectResponseCode,
@@ -14,12 +15,11 @@ test.describe('Login API', () => {
     const password = process.env.TEST_USER_PASSWORD!;
 
     // Act
-    const response = await loginService.verifyLogin(
-      email,
-      password,
-    );
+    const response = await loginService.verifyLogin(email, password);
 
-    const responseBody = await response.json();
+    const responseText = await attachApiResponse(response);
+
+    const responseBody = JSON.parse(responseText);
 
     // Assert
     expectSuccessfulResponse(response);
@@ -69,4 +69,5 @@ test.describe('Login API', () => {
       'Bad request, email or password parameter is missing in POST request.',
     );
   });
+
 });

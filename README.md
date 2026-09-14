@@ -202,7 +202,7 @@ git --version
 
 🚀 Installation
 
-Clone the repository: git clone <YOUR_GITHUB_REPOSITORY_URL>
+Clone the repository: git clone https://github.com/EFxFLICK/playwright-ui-api-automation-framework
 Navigate to the project: cd playwright-ui-api-automation-framework
 Install dependencies: npm ci
 Install Playwright browsers: npx playwright install
